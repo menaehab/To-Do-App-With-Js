@@ -15,7 +15,7 @@ function addTask(taskText) {
   const task = {
     id: Date.now(),
     title: taskText,
-    completed: false,
+    completed: false
   };
   taskList.push(task);
   addElements(taskList);
@@ -27,6 +27,9 @@ function addElements(taskList) {
   taskList.forEach((task) => {
     let div = document.createElement("div");
     div.className = "task";
+    if (task.completed) {
+      div.className = "task done";
+    }
     div.setAttribute("data-id", task.id);
     div.appendChild(document.createTextNode(task.title));
     let span = document.createElement("span");
@@ -34,6 +37,6 @@ function addElements(taskList) {
     span.appendChild(document.createTextNode("Delete"));
     div.appendChild(span);
     // console.log(span);
-    
+    tasks.append(div);
   });
 }
