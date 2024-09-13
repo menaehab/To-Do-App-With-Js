@@ -29,5 +29,11 @@ function addElements(taskList) {
     div.className = "task";
     div.setAttribute("data-id", task.id);
     div.appendChild(document.createTextNode(task.title));
+    let span = document.createElement("span");
+    span.className = "delete";
+    span.appendChild(document.createTextNode("Delete"));
+    div.appendChild(span);
+    // console.log(span);
+    
   });
 }
