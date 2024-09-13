@@ -3,6 +3,14 @@ let submit = document.getElementById("add");
 let tasks = document.getElementById("tasks");
 let taskList = [];
 
+function getDataFromLocalStorage() {
+  let data = window.localStorage.getItem("tasks");
+  if (data) {
+    taskList = JSON.parse(data);
+    addElements(taskList); 
+  }
+}
+
 // Add Task
 submit.onclick = function () {
   if (input.value !== "") {
@@ -19,8 +27,8 @@ function addTask(taskText) {
   };
   taskList.push(task);
   addElements(taskList);
+  storeToLocalStorage();
 }
-// console.log(taskList);
 
 function addElements(taskList) {
   tasks.innerHTML = "";
@@ -36,7 +44,12 @@ function addElements(taskList) {
     span.className = "delete";
     span.appendChild(document.createTextNode("Delete"));
     div.appendChild(span);
-    // console.log(span);
     tasks.append(div);
   });
 }
+
+function storeToLocalStorage() {
+  window.localStorage.setItem("tasks", JSON.stringify(taskList));
+}
+
+getDataFromLocalStorage();
