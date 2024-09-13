@@ -28,10 +28,25 @@ submit.onclick = function () {
   }
 };
 
+function toggleStatus(taskId) {
+  taskId = parseInt(taskId);
+  taskList.forEach((task) => {
+    if (task.id === taskId) {
+      task.completed = !task.completed;
+    }
+  });
+  addElements(taskList);
+  storeToLocalStorage();
+}
+
 tasks.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     deleteTaskWith(e.target.parentElement.getAttribute("data-id"));
     e.target.parentElement.remove();
+  }
+  if (e.target.classList.contains("task")) {
+    toggleStatus(e.target.getAttribute("data-id"));
+    e.target.classList.toggle("done");
   }
 });
 
