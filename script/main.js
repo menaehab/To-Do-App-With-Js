@@ -3,12 +3,21 @@ let submit = document.getElementById("add");
 let tasks = document.getElementById("tasks");
 let taskList = [];
 
+// Get Data From Local Storage
 function getDataFromLocalStorage() {
   let data = window.localStorage.getItem("tasks");
   if (data) {
     taskList = JSON.parse(data);
-    addElements(taskList); 
+    addElements(taskList);
   }
+}
+
+// Delete Task
+function deleteTaskWith(taskId) {
+  taskId = parseInt(taskId);
+  taskList = taskList.filter((task) => task.id !== taskId);
+  addElements(taskList);
+  storeToLocalStorage();
 }
 
 // Add Task
@@ -18,6 +27,13 @@ submit.onclick = function () {
     input.value = "";
   }
 };
+
+tasks.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    deleteTaskWith(e.target.parentElement.getAttribute("data-id"));
+    e.target.parentElement.remove();
+  }
+});
 
 function addTask(taskText) {
   const task = {
